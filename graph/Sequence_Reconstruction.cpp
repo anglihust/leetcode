@@ -1,7 +1,7 @@
 // bfs TLE
 //construct graph and calculate the in-degree
 //in BSF, every time there is a number with zero in-degree, compare it with the element in org sequence
-
+//https://leetcode.com/problems/sequence-reconstruction/
 class Solution {
 public:
     bool sequenceReconstruction(vector<int>& org, vector<vector<int>>& seqs) {
