@@ -1,0 +1,27 @@
+//dfs method
+class Solution {
+public:
+    bool hasPath(vector<vector<int>>& maze, vector<int>& start, vector<int>& destination) {
+        vector<vector<bool>> visited(maze.size(),vector<bool>(maze[0].size(),false));
+        vector<pair<int,int>> dir={{-1,0},{1,0},{0,-1},{0,1}};
+        return dfs(destination,dir,maze,start[0],start[1],visited);
+    }
+    
+    bool dfs(vector<int> destination,vector<pair<int,int>> dir,vector<vector<int>> maze,int curx, int cury,vector<vector<bool>> &visited){
+        if(curx==destination[0] and cury==destination[1]) return true;
+        for(int i=0;i<4;i++){
+            int dirx = dir[i].first;
+            int diry = dir[i].second;
+            int nx = curx;
+            int ny = cury;
+            while(nx+dirx>=0 and nx+dirx<maze.size() and ny+diry>=0 and ny+diry<maze[0].size() and !maze[nx+dirx][ny+diry]){
+                nx+=dirx;
+                ny+=diry;
+            }
+            if(visited[nx][ny]) continue;
+            visited[nx][ny]=true;
+            if(dfs(destination,dir,maze,nx,ny,visited)) return true;
+        }
+        return false;
+    }
+};
