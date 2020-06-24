@@ -1,0 +1,31 @@
+//In tree problem, simplfied the model to one root and two child
+// the ans = abs(unbalanced_number_left)+abs(unbalanced_number_right)
+// the unbalanced_number_subtree = root->val-1+unbalanced_number_left+unbalanced_number_right;
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    int distributeCoins(TreeNode* root) {
+        int ans = 0;
+        dfs(root,ans);
+        return ans;
+    }
+    
+    int dfs(TreeNode* root,int &ans){
+        if(root==NULL) return 0;
+        int left = dfs(root->left,ans);
+        int right = dfs(root->right,ans);
+        ans += abs(root->val-1+left+right);
+        return root->val-1+left+right;
+    }
+};
