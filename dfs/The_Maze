@@ -25,3 +25,31 @@ public:
         return false;
     }
 };
+
+//again,same
+class Solution {
+public:
+    bool hasPath(vector<vector<int>>& maze, vector<int>& start, vector<int>& destination) {
+        vector<pair<int,int>> dir ={{0,1},{0,-1},{1,0},{-1,0}};
+        vector<vector<int>> visited(maze.size(),vector<int>(maze[0].size(),0));
+        return dfs(maze,start,destination,visited,dir);
+    }
+    
+    bool dfs(vector<vector<int>> maze, vector<int> start, vector<int> destination, vector<vector<int>> &visited,vector<pair<int,int>> dir){
+        if(start==destination) return true;
+        for(int i=0;i<4;i++){
+            int cur_x = start[0];
+            int cur_y = start[1];
+            int dir_x =dir[i].first;
+            int dir_y =dir[i].second;
+            while(dir_x+cur_x>=0 and cur_x+dir_x<maze.size() and dir_y+cur_y>=0 and cur_y+dir_y<maze[0].size() and !maze[dir_x+cur_x][dir_y+cur_y]){
+                cur_x+=dir_x;
+                cur_y+=dir_y;
+            }
+            if(visited[cur_x][cur_y]) continue;
+            visited[cur_x][cur_y]=true;
+            if(dfs(maze,{cur_x,cur_y},destination,visited,dir)) return true;
+        }
+        return false;
+    }
+};
